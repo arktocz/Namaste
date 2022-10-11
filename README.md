@@ -2,7 +2,7 @@
 
 ## What is going on
 
-This is a project for students. Students are cooperating on this project under suspicion of teacher.toto jsem já
+This is a project for students. Students are cooperating on this project under suspicion of teacher.
 It is also a model of an information systems which could be used for some administrative task in university life.
 
 
