@@ -17,10 +17,19 @@ def resolveDictField(self, info: strawberryB.types.Info) -> str:
 
 def randomCampus(id=1):
     return{'id':id, 'name':'Campus_one','adress':'CampusOne_adress','managerID':'1'} 
+
+def randomBuilding(id=1):
+    return{'id':id, 'campusID':'1', 'name':'Building_one','managerID':'1'} 
+
+def randomFloor(id=1):
+    return{'id':id,'buildingID':'1', 'name':'Floor_one','managerID':'1'} 
+
+def randomRoom(id=1):
+    return{'id':id,'floorID':'1', 'name':'Room_one','managerID':'1'} 
  
 
 
-@strawberryB.federation.type(extend=True, keys=["id"])
+""" @strawberryB.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
 
     id: strawberryB.ID = strawberryB.federation.field(external=True)
@@ -48,7 +57,7 @@ class EventGQLModel:
 
     @strawberryB.field
     def users(self) -> typing.List['UserGQLModel']:
-        return [randomUser(user['id']) for user in self['users']]
+        return [randomUser(user['id']) for user in self['users']] """
 
 
 """ return{'id':id, 'name':'Campus_one','adress':'CampusOne_adress','managerID':'1'} """
@@ -71,6 +80,66 @@ class CampusGQLModel:
     def managerID(self) -> str:
         return self['managerID']
 
+""" return{'id':id, 'campusID':'1', 'name':'Building_one','managerID':'1'} """
+@strawberryB.federation.type(keys=["id"])
+class BuildingGQLModel:
+
+    @strawberryB.field
+    def id(self) -> str:
+        return self['id']
+
+    @strawberryB.field
+    def campusID(self) -> str:
+        return self['campusID']
+
+    @strawberryB.field
+    def name(self) -> str:
+        return self['name']
+    
+    @strawberryB.field
+    def managerID(self) -> str:
+        return self['managerID']
+
+
+"""return{'id':id,'buildingID':'1', 'name':'Floor_one','managerID':'1'} """
+@strawberryB.federation.type(keys=["id"])
+class FloorGQLModel:
+
+    @strawberryB.field
+    def id(self) -> str:
+        return self['id']
+
+    @strawberryB.field
+    def buildingID(self) -> str:
+        return self['buildingID']
+
+    @strawberryB.field
+    def name(self) -> str:
+        return self['name']
+    
+    @strawberryB.field
+    def managerID(self) -> str:
+        return self['managerID']
+
+"""return{'id':id,'floorID':'1', 'name':'Room_one','managerID':'1'}  """
+@strawberryB.federation.type(keys=["id"])
+class RoomGQLModel:
+
+    @strawberryB.field
+    def id(self) -> str:
+        return self['id']
+
+    @strawberryB.field
+    def floorID(self) -> str:
+        return self['floorID']
+
+    @strawberryB.field
+    def name(self) -> str:
+        return self['name']
+    
+    @strawberryB.field
+    def managerID(self) -> str:
+        return self['managerID']
    
 
 
@@ -83,13 +152,25 @@ class CampusGQLModel:
 class Query:
     _service: typing.Optional[str]
     
-    @strawberryB.field
+    """ @strawberryB.field
     def event_by_id(self, id: str) -> 'EventGQLModel':
-        return randomEvent(id)
+        return randomEvent(id) """
 
     @strawberryB.field
     def campus_by_id(self, id: str) -> 'CampusGQLModel':
         return randomCampus(id)
+
+    @strawberryB.field
+    def building_by_id(self, id: str) -> 'BuildingGQLModel':
+        return randomBuilding(id)
+
+    @strawberryB.field
+    def floor_by_id(self, id: str) -> 'FloorGQLModel':
+        return randomFloor(id)
+
+    @strawberryB.field
+    def room_by_id(self, id: str) -> 'RoomGQLModel':
+        return randomRoom(id)    
 
 
 
@@ -100,7 +181,7 @@ def myContext():
     return {'session': None}
 
 graphql_app = GraphQLRouter(
-    strawberryB.federation.Schema(query=Query, types=[UserGQLModel, EventGQLModel, CampusGQLModel]), 
+    strawberryB.federation.Schema(query=Query, types=[ CampusGQLModel, BuildingGQLModel, FloorGQLModel, RoomGQLModel]), 
     graphiql = True,
     allow_queries_via_get = True,
     root_value_getter = None,
