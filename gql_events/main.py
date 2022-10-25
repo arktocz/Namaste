@@ -28,7 +28,7 @@ def randomRoom(id=1):
     return{'id':id,'floorID':'1', 'name':'Room_one','managerID':'1'} 
  
 
-"""testy"""
+"""testy2"""
 """ @strawberryB.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
 
