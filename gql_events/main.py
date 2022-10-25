@@ -5,7 +5,7 @@ import typing
 import strawberry as strawberryB
 
 def randomEvent(id = 1):
-    return {'id': id, 'name': f'Event({id})'}
+    return {'id': id, 'name': f'Event({id})', 'users': [{'id': "3edba4da-d136-42d8-9f65-2e63e3e9d3f4"}]}
 
 def randomUser(id = 1):
     return {'id': id, 'name': 'John', 'surname': 'Leon', 'groups': [{'id': 1}]}
@@ -38,11 +38,11 @@ class UserGQLModel:
     def events(self) -> typing.List['EventGQLModel']:
         return [randomEvent(id) for id in range(10)]
 
-    @classmethod
-    def resolve_reference(cls, id: strawberryB.ID):
+#    @classmethod
+#    def resolve_reference(cls, id: strawberryB.ID):
         # here we could fetch the book from the database
         # or even from an API
-        return UserGQLModel(id=id)
+#        return UserGQLModel(id=id)
 
 @strawberryB.federation.type(keys=["id"])
 class EventGQLModel:
