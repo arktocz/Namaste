@@ -1,3 +1,4 @@
+from unicodedata import name
 import sqlalchemy
 import datetime
 
@@ -8,6 +9,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 BaseModel = declarative_base()
+###
 
 def UUIDColumn(name=None):
     if name is None:
@@ -22,6 +24,38 @@ def UUIDColumn(name=None):
 # zde definujte sve SQLAlchemy modely
 # je-li treba, muzete definovat modely obsahujici jen id polozku, na ktere se budete odkazovat
 #
+
+
+""" class MembershipModel(BaseModel):
+    """
+class FacilityModel(BaseModel):
+    """Spravuje data spojena s objektem daneho typu
+    """
+    __tablename__='facilities'
+
+    id = UUIDColumn()
+    name = Column(String)
+    address = Column(String)
+    valid = Column(Boolean, default=True)
+    facilitytype_id = Column(ForeignKey('facilitytypes.id'))
+    capacity=Column(Integer)
+    manager_id=Column(ForeignKey('users.id'), primary_key=True)
+    
+    master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True)   
+    externalId = Column(String, index=True)
+
+class FacilityTypeModel(BaseModel):
+    """Urcuje typ objektu (areal, budova, patro, mistnost)
+    """
+    __tabletype__='facilitytypes'
+    id=UUIDColumn()
+    name=Column(String)
+
+    facilities=relationship('FacilityModel', back_populates='facilitytype')
+
+
+   
+
 ###########################################################################################################################
 
 from sqlalchemy import create_engine
