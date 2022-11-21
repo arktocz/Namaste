@@ -46,14 +46,14 @@ class FacilityModel(BaseModel):
     master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True)   
     externalId = Column(String, index=True)
 
-# class FacilityTypeModel(BaseModel):
-#     """Urcuje typ objektu (areal, budova, patro, mistnost)
-#     """
-#     __tabletype__='facilitytypes'
-#     id=UUIDColumn()
-#     name=Column(String)
+class FacilityTypeModel(BaseModel):
+    """Urcuje typ objektu (areal, budova, patro, mistnost)
+    """
+    __tabletype__='facilitytypes'
+    id=UUIDColumn()
+    name=Column(String)
 
-#     facilities=relationship('FacilityModel', back_populates='facilitytype')
+    facilities=relationship('FacilityModel', back_populates='facilitytype')
 
 
 class UserModel(BaseModel):
@@ -62,10 +62,10 @@ class UserModel(BaseModel):
     __tablename__ = 'users'
 
     id = UUIDColumn()
-    name = Column(String)
-    surname = Column(String)
+   # name = Column(String)
+    #surname = Column(String)
    
-    externalId = Column(BigInteger, index=True)
+    #externalId = Column(BigInteger, index=True)
 
    
 

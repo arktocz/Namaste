@@ -29,13 +29,13 @@ def singleCall(asyncFunc):
 def determineFacilityTypes():
     """Definuje zakladni typy facility a udrzuje je v pameti (campus/building/floor/room)"""
     facilityTypes = [
-        {'name':'campus'},
-        {'name':'building'},
-        {'name':'floor'},
-        {'name':'room'}
+        {'name':'campus', 'id': ""},
+        {'name':'building', 'id': ""},
+        {'name':'floor', 'id': ""},
+        {'name':'room', 'id': ""}
     ]
     return facilityTypes
-
+#generovvat id podobné uuid
 
 ##vymyslet struct která doplni id podle typu facility
 

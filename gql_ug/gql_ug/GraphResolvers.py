@@ -31,7 +31,6 @@ async def resolveUsersByThreeLetters(session: AsyncSession, validity = None, let
 
     dbSet = await session.execute(stmt)
     return dbSet.scalars()
-
 ## group resolvers
 resolveGroupById = createEntityByIdGetter(GroupModel)
 resolveGroupAll = createEntityGetter(GroupModel)

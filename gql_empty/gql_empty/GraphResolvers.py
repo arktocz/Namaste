@@ -19,7 +19,7 @@ from gql_workflow.DBDefinitions import BaseModel
 #
 ###########################################################################################################################
 
-
+from gql_empty.DBDefinitions import FacilityTypeModel, FacilityModel
 
 ###########################################################################################################################
 #
@@ -28,3 +28,6 @@ from gql_workflow.DBDefinitions import BaseModel
 #
 ###########################################################################################################################
 
+resolveFacilityById = createEntityByIdGetter(FacilityModel)
+
+resolveFacilityPage = createEntityGetter(FacilityModel)
