@@ -37,6 +37,8 @@ class FacilityModel(BaseModel):
     name = Column(String)
     address = Column(String)
     valid = Column(Boolean, default=True)
+    startdate = Column(DateTime)
+    enddate = Column(DateTime)
     facilitytype_id = Column(ForeignKey('facilitytypes.id'))
     capacity=Column(Integer)
     manager_id=Column(ForeignKey('users.id'), primary_key=True)
