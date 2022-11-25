@@ -25,19 +25,19 @@ services:
     ports:
       - 31120:8000
 
-  gql_workflow:
-    image: gql_workflow
-    build:
-      context: ./gql_workflow
-    environment: 
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=example
-      - POSTGRES_DB=data
-    depends_on:
-      - postgres
-      - gql_ug
-    ports:
-      - 31123:8000
+  # gql_workflow:
+  #   image: gql_workflow
+  #   build:
+  #     context: ./gql_workflow
+  #   environment: 
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=example
+  #     - POSTGRES_DB=data
+  #   depends_on:
+  #     - postgres
+  #     - gql_ug
+  #   ports:
+  #     - 31123:8000
 
   gql_empty:
     image: gql_empty
@@ -53,16 +53,16 @@ services:
     ports:
       - 31128:8000
 
-  gql_events:
-    image: gql_events
-    build:
-      context: ./gql_events
-    environment: 
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=example
-      - POSTGRES_DB=data
-    depends_on:
-      - postgres
+  # gql_events:
+  #   image: gql_events
+  #   build:
+  #     context: ./gql_events
+  #   environment: 
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=example
+  #     - POSTGRES_DB=data
+  #   depends_on:
+  #     - postgres
 
   postgres:
     image: postgres

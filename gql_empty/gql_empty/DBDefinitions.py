@@ -44,12 +44,12 @@ class FacilityModel(BaseModel):
     manager_id=Column(ForeignKey('users.id'), primary_key=True)
     
     master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True)   
-    externalId = Column(String, index=True)
+    external_id = Column(String, index=True)
 
 class FacilityTypeModel(BaseModel):
     """Urcuje typ objektu (areal, budova, patro, mistnost)
     """
-    __tabletype__='facilitytypes'
+    __tablename__='facilitytypes'
     id=UUIDColumn()
     name=Column(String)
 
