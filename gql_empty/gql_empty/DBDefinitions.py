@@ -36,15 +36,20 @@ class FacilityModel(BaseModel):
     id = UUIDColumn()
     name = Column(String)
     address = Column(String)
+    label=Column(String)
+    capacity=Column(Integer)
+    geometry=Column(String)
+    geolocation=Column(String)
+    facilitytype_id = Column(ForeignKey('facilitytypes.id'))
+    manager_id=Column(ForeignKey('users.id'), primary_key=True)
+
+    lastchange = Column(DateTime)
     valid = Column(Boolean, default=True)
     startdate = Column(DateTime)
-    enddate = Column(DateTime)
-    facilitytype_id = Column(ForeignKey('facilitytypes.id'))
-    capacity=Column(Integer)
-    manager_id=Column(ForeignKey('users.id'), primary_key=True)
-    
+    enddate = Column(DateTime)    
+
     master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True)   
-    external_id = Column(String, index=True)
+    # external_id = Column(String, index=True)
 
 class FacilityTypeModel(BaseModel):
     """Urcuje typ objektu (areal, budova, patro, mistnost)
