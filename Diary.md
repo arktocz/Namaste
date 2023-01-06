@@ -11,4 +11,8 @@
    
   Po konzultaci jsme pochopili všechno co se týče propojení všech věcí a jakým způsobem se máme vydat, ale prvotní práce s apolem pro nás byla složitá a je potřeba podrobnější práce s tímto rozhraním. Povedlo se nám připravit první entitu, kterou budeme prezentovat na prvním projektovém dnu, abychom "měli něco v rukách" v moment prezentace.
 
-#### 3.týden
+#### **3.týden**
+ Vytvoření a dokončení DBDefinition včetně všech jeho struktur bylo hlavně o konzultacích, zda jsme podchytili vše co bylo potřeba na splnění našeho projektu. Datové modely jsme testovali pomocí Jupyteru. Potíkali jsme se s problémem co se týče propisován informací do PGAdminu. Tento problém se vyřešil bez jakéhokoliv zasáhnutí do kódu. Začali jsme tvořit resolvery, abychom mohli efektivně pracovat s Apolem.
+
+#### **5.týden**
+ 
