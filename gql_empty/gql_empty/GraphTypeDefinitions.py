@@ -2,6 +2,7 @@ from typing import List, Union
 import typing
 import strawberry as strawberryA
 import uuid
+import datetime
 
 def AsyncSessionFromInfo(info):
     return info.context['session'] 
@@ -22,6 +23,15 @@ class FacilityGQLModel:
     #     result = await resolveWorkflowById(AsyncSessionFromInfo(info), id)
     #     result._type_definition = cls._type_definition # little hack :)
     #     return result
+
+    
+    # facilitytype_id = Column(ForeignKey('facilitytypes.id'))
+    # manager_id=Column(ForeignKey('users.id'), primary_key=True)
+
+      
+
+    # master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True) 
+
     #id
     @strawberryA.field(description="""primary key/facility id""")
     def id(self) -> strawberryA.ID:
@@ -34,34 +44,54 @@ class FacilityGQLModel:
     @strawberryA.field(description="""Facility address""")
     def address(self) -> str:
         return self.address
+    #label
+    @strawberryA.field(description="""Facility label""")
+    def label(self) -> str:
+        return self.label  
+    #capacity
+    @strawberryA.field(description="""Facility capacity""")
+    def capacity(self) -> int:
+        return self.capacity   
+    #geometry
+    @strawberryA.field(description="""Facility geometry""")
+    def geometry(self) -> str:
+        return self.geometry  
+    #geolocation
+    @strawberryA.field(description="""Facility geolocation""")
+    def geolocation(self) -> str:
+        return self.geolocation 
+    #facilitytype_id
+    @strawberryA.field(description="""Facility geolocation""")
+    async def geolocation(self) -> FacilityTypeGQLModel:
+        return resolve  self.facilitytype_id 
+    #manager_id
+    #master_facility_id
+
+
+    #lastchange
+    @strawberryA.field(description="""is the membership still valid""")
+    def lastchange(self) -> datetime.datetime:
+        return self.lastchange
     #valid
     @strawberryA.field(description="""is the facility still valid""")
     def valid(self) -> bool:
         return self.valid
-    # #startdate
-    # @strawberryA.field(description="""is the membership still valid""")
-    # def valid(self) -> datetime:
-    #     return self.valid
-    # #enddate
-    #facilitytype_id
+    #startdate
+    @strawberryA.field(description="""is the membership still valid""")
+    def startdate(self) -> datetime.datetime:
+        return self.startdate
+    #enddate
+    @strawberryA.field(description="""is the membership still valid""")
+    def enddate(self) -> datetime.datetime:
+        return self.enddate
 
-    #capacity
-    @strawberryA.field(description="""Facility's name""")
-    def capacity(self) -> int:
-        return self.capacity
-    #manager_id
    
-
-    #master_facility_id
-    #external_id
-    @strawberryA.field(description="""Facility external id""")
-    def external_id(self) -> str:
-        return self.external_id
+    
+   
 
     
 
-
-@strawberryA.federation.type(description="""Type for query root""")
+@strawberryA.federation.type(keys=["id"], description="""Type for query root""")
 class FacilityTypeGQLModel:
     # @classmethod
     # async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
@@ -84,7 +114,7 @@ class FacilityTypeGQLModel:
 # zde definujte svuj Query model
 #
 ###########################################################################################################################
-from gql_empty.GraphResolvers import resolveFacilityById
+from gql_empty.GraphResolvers import resolveFacilityById, resolveFacilityPage
 @strawberryA.type(description="""Type for query root""")
 class Query:
    
@@ -96,4 +126,9 @@ class Query:
     @strawberryA.field(description="""Finds an workflow by their id""")
     async def facility_by_id(self, info: strawberryA.types.Info, id: uuid.UUID) -> FacilityGQLModel:
         result = await resolveFacilityById(AsyncSessionFromInfo(info), id )
+        return result
+
+    @strawberryA.field(description="""Finds an workflow by their id""")
+    async def facility_page(self, info: strawberryA.types.Info, id: uuid.UUID) -> FacilityGQLModel:
+        result = await resolveFacilityPage(AsyncSessionFromInfo(info), id )
         return result
