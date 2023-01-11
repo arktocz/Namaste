@@ -82,14 +82,15 @@ def determineFacilityTypes():
     ]
     return facilityTypes
 
-areaUUIDs= randomUUID(4)
-budovaUUIDs=randomUUID(8)
-patroUUIDs=randomUUID(16)
-mistnostUUID=randomUUID(32)
+areaUUIDs= randomUUID(2)
+buildingUUIDs=randomUUID(4)
+floorUUIDs=randomUUID(8)
+roomUUID=randomUUID(16)
 
 
-def randomArea(id):
-    """nahodna facility"""
+
+def randomSubArea(id, master_id, facility_type):
+    """nahodny sub areal"""
     return {
         'id':id,
         'name':randomFacilityName(),
@@ -98,17 +99,55 @@ def randomArea(id):
         'capacity':randomCapacity(),
         'geometry':randomFacilityGeometry(),
         'geolocation':randomFacilityGeolocation(),
-        # 'facilitytype_id':,
+        'facilitytype_id':facilitytypesIDs[facility_type],
         'manager_id':randomManagerID(),
         'lastchange':randomLastChange(),
         'valid': True,
         'startdate':randomStartDate(),
         'enddate':randomEndDate(),
-        'master_facility_id':
+        'master_facility_id':master_id
         }
 
 
+def createDataStructureFacilities():
+    areas=[]
+    areasindex=0
+    buildings=[]
+    indexbuilding=0
+    floors=[]
+    indexfloors=0
+    rooms=[]
+    indexrooms=0
+    for id in areaUUIDs:
+        areas.append(randomSubArea(id, id,0))
+        for x in range(2):
+            buildings.append(randomSubArea(buildingUUIDs[indexbuilding], areaUUIDs[areasindex],1))
+            for x in range(2):
+                floors.append(randomSubArea(floorUUIDs[indexfloors],buildingUUIDs[indexbuilding],2))
+                for x in range(2):
+                    rooms.append(randomSubArea(roomUUID[indexrooms], floorUUIDs[indexfloors], 3))
+                    indexrooms+=1
+                indexfloors+=1
+            indexbuilding+=1
+        areasindex+=1
+    facilities=[]
+    facilities=areas+buildings+floors+rooms
+    return facilities
 
 def createDataStructureFacilityTypes():
     facilityTypes=determineFacilityTypes()
     return facilityTypes
+
+async def randomDataStructure(session):
+
+    facilityTypes = createDataStructureFacilityTypes()
+    facilityTypesToAdd=[FacilityTypeModel(**record) for record in facilityTypes]
+    async with session.begin():
+        session.add_all(facilityTypesToAdd)
+    await session.commit()
+
+    facilities = createDataStructureFacilities()
+    facilitiesToAdd=[FacilityModel(**record)for record in facilities]
+    async with session.begin():
+        session.add_all(facilitiesToAdd)
+    await session.commit()

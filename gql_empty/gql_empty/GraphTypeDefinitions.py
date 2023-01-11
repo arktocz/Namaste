@@ -61,9 +61,9 @@ class FacilityGQLModel:
     def geolocation(self) -> str:
         return self.geolocation 
     #facilitytype_id
-    @strawberryA.field(description="""Facility geolocation""")
-    async def geolocation(self) -> FacilityTypeGQLModel:
-        return resolve  self.facilitytype_id 
+    # @strawberryA.field(description="""Facility geolocation""")
+    # async def geolocation(self) -> FacilityTypeGQLModel:
+    #     return resolve  self.facilitytype_id 
     #manager_id
     #master_facility_id
 
