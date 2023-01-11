@@ -40,7 +40,7 @@ class FacilityModel(BaseModel):
     capacity=Column(Integer)
     geometry=Column(String)
     geolocation=Column(String)
-    facilitytype_id = Column(ForeignKey('facilitytypes.id'))
+    facilitytype_id = Column(ForeignKey('facilitytypes.id'), primary_key=True)
     manager_id=Column(ForeignKey('users.id'), primary_key=True)
 
     lastchange = Column(DateTime)
