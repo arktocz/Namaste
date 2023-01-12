@@ -68,7 +68,7 @@ def randomEndDate():
     return base + timedelta(days=random.randint(1,30))
 
 def randomManagerID():
-    managerUUID=uuid.uuid4()
+    managerUUID="7d6d341e-02fe-45dd-b103-b3c15a903fb8"
     return managerUUID
 
 facilitytypesIDs = randomUUID(4)
@@ -151,3 +151,4 @@ async def randomDataStructure(session):
     async with session.begin():
         session.add_all(facilitiesToAdd)
     await session.commit()
+    

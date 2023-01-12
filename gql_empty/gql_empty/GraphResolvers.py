@@ -30,6 +30,7 @@ from gql_empty.DBDefinitions import FacilityTypeModel, FacilityModel
 
 resolveFacilityById = createEntityByIdGetter(FacilityModel)
 
+
 resolveFacilityPage = createEntityGetter(FacilityModel)
 
 resolveFacilityByLabel=createEntityGetter(FacilityModel) #je správně?? nopee

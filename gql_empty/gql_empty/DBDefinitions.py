@@ -58,7 +58,7 @@ class FacilityTypeModel(BaseModel):
     id=UUIDColumn()
     name=Column(String)
 
-    facilities=relationship('FacilityModel', back_populates='facilitytype')
+    #facilities=relationship('FacilityModel', back_populates='facilitytype')
 
 
 class UserModel(BaseModel):

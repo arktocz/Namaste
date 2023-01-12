@@ -115,6 +115,7 @@ class FacilityTypeGQLModel:
 #
 ###########################################################################################################################
 from gql_empty.GraphResolvers import resolveFacilityById, resolveFacilityPage
+from gql_empty.DBFeeder import randomDataStructure
 @strawberryA.type(description="""Type for query root""")
 class Query:
    
@@ -129,6 +130,16 @@ class Query:
         return result
 
     @strawberryA.field(description="""Finds an workflow by their id""")
-    async def facility_page(self, info: strawberryA.types.Info, id: uuid.UUID) -> FacilityGQLModel:
-        result = await resolveFacilityPage(AsyncSessionFromInfo(info), id )
+    async def facility_page(self, info: strawberryA.types.Info) -> List[FacilityGQLModel]:
+        result = await resolveFacilityPage(AsyncSessionFromInfo(info),0,1000)
         return result
+
+    @strawberryA.field(description="""Random facility""")
+    async def randomFacility(self, name: str, info: strawberryA.types.Info) -> str:
+        newId = await randomDataStructure(AsyncSessionFromInfo(info))#tady druhy arg name
+        # print('random facility id', newId)
+        # result = await resolveFacilityById(AsyncSessionFromInfo(info), newId)
+        # print('db response', result.name)
+        return "ok"
+
+        #dsfsdfsdf
