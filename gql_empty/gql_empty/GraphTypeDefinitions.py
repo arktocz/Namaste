@@ -97,7 +97,7 @@ class FacilityGQLModel:
     @strawberryA.field(description="""is the membership still valid""")
     def enddate(self) -> datetime.datetime:
         return self.enddate
-#FACILITY UPDATE #jen to co nemá relationship
+#FACILITY UPDATE
 @strawberryA.input(description="""Entity representing a facility update""")
 class FacilityUpdateGQLModel:
     lastchange: datetime.datetime
@@ -115,8 +115,6 @@ class FacilityUpdateGQLModel:
     master_facility_id: Optional[uuid.UUID] = None
 
 #FACILITY EDITOR
-#GQL PROJECT EDITOR
-#from gql_empty.GraphResolvers import resolveRemoveFinance, resolveRemoveMilestone
 @strawberryA.federation.type(keys=["id"], description="""Entity representing an editable facility""")
 class FacilityEditorGQLModel:
     id: strawberryA.ID = None
@@ -166,29 +164,7 @@ class FacilityEditorGQLModel:
             await session.commit()
             return facility
         
-    # @strawberryA.field(description="""Create new finance""")
-    # async def add_finance(self, info: strawberryA.types.Info, name: str, amount: int, financeType_id: uuid.UUID) -> 'FinanceGQLModel':
-    #     async with withInfo(info) as session:
-    #         result = await resolveInsertFinance(session, None, extraAttributes={'name': name, 'amount': amount, 'financeType_id': financeType_id, 'project_id': self.id})
-    #         return result    
-
-    # @strawberryA.field(description="""Remove finance""")
-    # async def remove_finance(self, info: strawberryA.types.Info, finance_id: uuid.UUID) -> str:
-    #     async with withInfo(info) as session:
-    #         result = await resolveRemoveFinance(session, self.id, finance_id)
-    #         return result
-        
-    # @strawberryA.field(description="""Create new milestone""")
-    # async def add_milestone(self, info: strawberryA.types.Info, name: str, date: datetime.date) -> 'MilestoneGQLModel':
-    #     async with withInfo(info) as session:
-    #         result = await resolveInsertMilestone(session, None, extraAttributes={'name': name, 'date': date, 'project_id': self.id})
-    #         return result  
-
-    # @strawberryA.field(description="""Remove milestone""")
-    # async def remove_milestone(self, info: strawberryA.types.Info, milestone_id: uuid.UUID) -> str:
-    #     async with withInfo(info) as session:
-    #         result = await resolveRemoveMilestone(session, self.id, milestone_id)
-    #         return result
+   
 ###END EDITOR
    
 #FACILITY TYPE    

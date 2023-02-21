@@ -43,5 +43,4 @@ resolveFacilityTypeAll = createEntityGetter(FacilityTypeModel)
 resolveUpdateFacilityType = createUpdateResolver(FacilityTypeModel)
 resolveInsertFacilityType = createInsertResolver(FacilityTypeModel)
 
-#User/Manager resolvers-dodělat
-#resolveFacilityForUser = create1NGetter(FacilityModel, foreignKeyName='manager_id') #má tu být manager_id nebo user_id?
+
