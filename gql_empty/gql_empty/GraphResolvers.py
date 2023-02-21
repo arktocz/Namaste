@@ -28,10 +28,20 @@ from gql_empty.DBDefinitions import FacilityTypeModel, FacilityModel
 #
 ###########################################################################################################################
 
-resolveFacilityById = createEntityByIdGetter(FacilityModel)
-
-
-resolveFacilityPage = createEntityGetter(FacilityModel)
+#facility resolvers
+resolveFacilityById = createEntityByIdGetter(FacilityModel)#funguje, nemazat, nešahat
+resolveFacilityPage = createEntityGetter(FacilityModel)#funguje nemazat, nešahat
+resolveUpdateFacility = createUpdateResolver(FacilityModel)
+resolveInsertFacility = createInsertResolver(FacilityModel)
 
 resolveFacilityByLabel=createEntityGetter(FacilityModel) #je správně?? nopee
-resolveFacilityType=createEntityByIdGetter(FacilityTypeModel)
+
+#facility type resolvers
+#resolveFacilityType=createEntityByIdGetter(FacilityTypeModel)
+resolveFacilityTypeById = createEntityByIdGetter(FacilityTypeModel)
+resolveFacilityTypeAll = createEntityGetter(FacilityTypeModel)
+resolveUpdateFacilityType = createUpdateResolver(FacilityTypeModel)
+resolveInsertFacilityType = createInsertResolver(FacilityTypeModel)
+
+#User/Manager resolvers-dodělat
+#resolveFacilityForUser = create1NGetter(FacilityModel, foreignKeyName='manager_id') #má tu být manager_id nebo user_id?
