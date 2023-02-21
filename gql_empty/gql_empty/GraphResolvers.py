@@ -34,6 +34,7 @@ resolveFacilityPage = createEntityGetter(FacilityModel)#funguje nemazat, nešaha
 resolveUpdateFacility = createUpdateResolver(FacilityModel)
 resolveInsertFacility = createInsertResolver(FacilityModel)
 
+
 resolveFacilityByLabel=createEntityGetter(FacilityModel) #je správně?? nopee
 
 #facility type resolvers

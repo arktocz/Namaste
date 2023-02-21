@@ -186,7 +186,7 @@ class FacilityTypeGQLModel:
         return self.name
 
 #USER
-@strawberryA.federation.type(extend=True, keys=["id"],description="""Entity representing a user""")
+@strawberryA.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
 
     id: strawberryA.ID = strawberryA.federation.field(external=True)

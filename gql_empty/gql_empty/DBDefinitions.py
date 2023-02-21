@@ -48,7 +48,7 @@ class FacilityModel(BaseModel):
     startdate = Column(DateTime)
     enddate = Column(DateTime)    
 
-    master_facility_id=Column(ForeignKey('facilities.id'), primary_key=True)   
+    master_facility_id=Column(ForeignKey('facilities.id'), nullable=True, primary_key=True)   
     # external_id = Column(String, index=True)
 
 class FacilityTypeModel(BaseModel):
