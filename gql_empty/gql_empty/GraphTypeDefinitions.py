@@ -97,6 +97,10 @@ class FacilityGQLModel:
     @strawberryA.field(description="""is the membership still valid""")
     def enddate(self) -> datetime.datetime:
         return self.enddate
+    #editor
+    @strawberryA.field(description="""Returns facility editor""")
+    async def editor(self, info: strawberryA.types.Info) -> Union['FacilityEditorGQLModel', None]:
+        return self
 #FACILITY UPDATE
 @strawberryA.input(description="""Entity representing a facility update""")
 class FacilityUpdateGQLModel:
