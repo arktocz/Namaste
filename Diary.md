@@ -45,7 +45,7 @@ Co si budeme, jsme pěkně v kýblu a možná ještě hůř a editor nikde. Tohl
 Editor se dal, ale řešíme hloupé bugy stylu description na usertable, apod. No prostě mamlasové
 
 #### **poslední dny před odevzdání**
-"A man of focus, commitment and sheer will" i takto by šly tyto dny shrnout
+"A man of focus, commitment and sheer will" i takto by šly tyto dny shrnout+ dokumentace, VŠUDE dokumetace
  
 #### **den před zkouškou**
 Při dopisování těchto vět jsem si uvědomil, že ještě musím udělat docker image wish me luck
