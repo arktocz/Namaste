@@ -1,6 +1,6 @@
 from doctest import master
 from functools import cache
-from gql_empty.DBDefinitions import BaseModel, FacilityModel, FacilityTypeModel, UserModel
+from gql_facilities.DBDefinitions import BaseModel, FacilityModel, FacilityTypeModel, UserModel
 
 import uuid
 import random

@@ -1,8 +1,8 @@
 from sqlalchemy.future import select
 import strawberry
 
-from gql_empty.DBDefinitions import BaseModel, UserModel, GroupModel, MembershipModel, RoleModel
-from gql_empty.DBDefinitions import GroupTypeModel, RoleTypeModel
+from gql_facilities.DBDefinitions import BaseModel, UserModel, GroupModel, MembershipModel, RoleModel
+from gql_facilities.DBDefinitions import GroupTypeModel, RoleTypeModel
 
 def AsyncSessionFromInfo(info):
     return info.context['session']

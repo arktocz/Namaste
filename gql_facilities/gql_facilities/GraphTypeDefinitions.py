@@ -29,7 +29,7 @@ def AsyncSessionMakerFromInfo(info):
 #
 ###########################################################################################################################
 #FACILITIES
-from gql_empty.GraphResolvers import resolveFacilityById, resolveFacilityPage, resolveInsertFacility, resolveUpdateFacility
+from gql_facilities.GraphResolvers import resolveFacilityById, resolveFacilityPage, resolveInsertFacility, resolveUpdateFacility
 @strawberryA.federation.type(description="""Type for query root""")
 class FacilityGQLModel:
 
@@ -172,7 +172,7 @@ class FacilityEditorGQLModel:
 ###END EDITOR
    
 #FACILITY TYPE    
-from gql_empty.GraphResolvers import resolveFacilityTypeById, resolveFacilityTypeAll, resolveInsertFacilityType, resolveUpdateFacilityType
+from gql_facilities.GraphResolvers import resolveFacilityTypeById, resolveFacilityTypeAll, resolveInsertFacilityType, resolveUpdateFacilityType
 @strawberryA.federation.type(keys=["id"], description="""Type for query root""")
 class FacilityTypeGQLModel:
     # @classmethod
@@ -206,8 +206,8 @@ class UserGQLModel:
 # zde definujte svuj Query model
 #
 ###########################################################################################################################
-#from gql_empty.GraphResolvers import resolveFacilityById, resolveFacilityPage
-from gql_empty.DBFeeder import randomDataStructure
+#from gql_facilities.GraphResolvers import resolveFacilityById, resolveFacilityPage
+from gql_facilities.DBFeeder import randomDataStructure
 @strawberryA.type(description="""Type for query root""")
 class Query:
    
