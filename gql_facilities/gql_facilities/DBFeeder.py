@@ -90,7 +90,21 @@ roomUUID=randomUUID(16)
 
 
 def randomSubArea(id, master_id, facility_type):
-    """nahodny sub areal"""
+    """asembly of random facility     
+
+        Parameters
+        ----------
+        id: UUID
+            id of facility
+        master_id: UUID
+            id of master facility
+        facility_type: UUID
+            id of type of facility
+
+        Returns
+        ---------
+        1 random facility    
+    """
     return {
         'id':id,
         'name':randomFacilityName(),
@@ -110,6 +124,11 @@ def randomSubArea(id, master_id, facility_type):
 
 
 def createDataStructureFacilities():
+    """creates list of facilities
+        Returns
+        ---------
+        32 random facilities by deafult    
+    """
     areas=[]
     areasindex=0
     buildings=[]
@@ -135,11 +154,18 @@ def createDataStructureFacilities():
     return facilities
 
 def createDataStructureFacilityTypes():
+    """creates random facility type list     
+
+        Returns
+        ---------
+        4 random facility types
+    """
     facilityTypes=determineFacilityTypes()
     return facilityTypes
 
 async def randomDataStructure(session):
-
+    """asembly of facilities data for query      
+    """
     facilityTypes = createDataStructureFacilityTypes()
     facilityTypesToAdd=[FacilityTypeModel(**record) for record in facilityTypes]
     async with session.begin():

@@ -6,6 +6,7 @@ import uuid
 import datetime
 from contextlib import asynccontextmanager
 
+
 @asynccontextmanager
 async def withInfo(info):
     asyncSessionMaker = info.context['asyncSessionMaker']
@@ -32,13 +33,39 @@ def AsyncSessionMakerFromInfo(info):
 from gql_facilities.GraphResolvers import resolveFacilityById, resolveFacilityPage, resolveInsertFacility, resolveUpdateFacility
 @strawberryA.federation.type(description="""Type for query root""")
 class FacilityGQLModel:
-
-    # @classmethod
-    # async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
-    #     result = await resolveWorkflowById(AsyncSessionFromInfo(info), id)
-    #     result._type_definition = cls._type_definition # little hack :)
-    #     return result
-
+    """class representing facility model
+    
+    Attributes
+    ----------
+    id: UUID
+        id of facility
+    name: str
+        name of facility
+    address: str
+        address of facility
+    label: str
+        label of facility
+    capacity: int
+        capacity of  facility
+    geometry: str
+        geometry  of  facility
+    geolocation: str
+        geolocation of  facility
+    facilityType: FacilityTypeGQLModel
+        facility type  of  facility
+    manager_id: UserGQLModel
+        manager ID  of  facility
+    lastchange: datetime.datetime
+        lastchange  of  facility
+    valid: bool
+        is facility still valid?
+    startdate: datetime.datetime
+        when was facility created
+    enddate: datetime.datetime
+        when was facility ended
+    editor: FacilityEditorGQLModel
+        editor for facility
+    """
     #id
     @strawberryA.field(description="""primary key/facility id""")
     def id(self) -> strawberryA.ID:
@@ -101,9 +128,28 @@ class FacilityGQLModel:
     @strawberryA.field(description="""Returns facility editor""")
     async def editor(self, info: strawberryA.types.Info) -> Union['FacilityEditorGQLModel', None]:
         return self
+    
 #FACILITY UPDATE
 @strawberryA.input(description="""Entity representing a facility update""")
 class FacilityUpdateGQLModel:
+    """class representing facility model
+    
+    Attributes
+    ----------
+    name: str
+    address: str
+    label: str
+    capacity: int
+    geometry: str
+    geolocation: str
+    facilityType: FacilityTypeGQLModel
+    manager_id: UserGQLModel
+    lastchange: datetime.datetime
+    valid: bool
+    startdate: datetime.datetime
+    enddate: datetime.datetime
+    editor: FacilityEditorGQLModel
+    """
     lastchange: datetime.datetime
     name:  Optional[str] = None
     address:  Optional[str] = None
@@ -121,6 +167,26 @@ class FacilityUpdateGQLModel:
 #FACILITY EDITOR
 @strawberryA.federation.type(keys=["id"], description="""Entity representing an editable facility""")
 class FacilityEditorGQLModel:
+    """class representing facility update model
+    
+    Attributes
+    ----------
+    id: UUID
+        id of facility to edit
+    result: str
+        was edit succesfull?
+
+    Methods
+    -------
+    resolve_reference(class, info:strawberry.type.Info, id:strawberry.ID)
+        resolves refence and pasees execution context
+    facility(self, info: strawberryA.types.Info)
+        resolves facility by its id
+    update(self, info: strawberryA.types.Info, data: FacilityUpdateGQLModel)
+        updates facility
+    invalidate_facility(self, info: strawberryA.types.Info)
+        invalidates facility
+    """
     id: strawberryA.ID = None
     result: str = None
 
@@ -152,9 +218,9 @@ class FacilityEditorGQLModel:
             await resolveUpdateFacility(session, id=self.id, data=data)
             if lastchange == data.lastchange:
                 # no change
-                resultMsg = "fail"
-            else:
                 resultMsg = "ok"
+            else:
+                resultMsg = "fail"
             result = FacilityEditorGQLModel()
             result.id = self.id
             result.result = resultMsg
@@ -167,23 +233,27 @@ class FacilityEditorGQLModel:
             facility.valid = False
             await session.commit()
             return facility
+    
         
-   
-###END EDITOR
    
 #FACILITY TYPE    
 from gql_facilities.GraphResolvers import resolveFacilityTypeById, resolveFacilityTypeAll, resolveInsertFacilityType, resolveUpdateFacilityType
 @strawberryA.federation.type(keys=["id"], description="""Type for query root""")
 class FacilityTypeGQLModel:
-    # @classmethod
-    # async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
-    #     result = await resolveWorkflowById(AsyncSessionFromInfo(info), id)
-    #     result._type_definition = cls._type_definition # little hack :)
-    #     return result
+    """class representing facility update model
+    
+    Attributes
+    ----------
+    id: UUID
+        id of facility type
+    name: str
+        name of facility tape
+    """
     #id
     @strawberryA.field(description="""primary key/facility type id""")
     def id(self) -> strawberryA.ID:
         return self.id
+    
     #type name
     @strawberryA.field(description="""Facility type name""")
     def name(self) -> str:
@@ -192,6 +262,18 @@ class FacilityTypeGQLModel:
 #USER
 @strawberryA.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
+    """class representing facility update model
+    
+    Attributes
+    ----------
+    id: UUID
+        id of facility to edit
+
+    Methods
+    -------
+    resolve_reference(class,  id:strawberry.ID)
+        resolves refence to user
+    """
 
     id: strawberryA.ID = strawberryA.federation.field(external=True)
 
@@ -210,14 +292,31 @@ class UserGQLModel:
 from gql_facilities.DBFeeder import randomDataStructure
 @strawberryA.type(description="""Type for query root""")
 class Query:
-   
+    """class representing query
+    
+    Methods
+    -------
+    say_hello(self, info: strawberryA.types.Info, id: uuid.UUID)
+        just to test things out
+    facility_by_id(self, info: strawberryA.types.Info, id: uuid.UUID)
+        query for facility by id and its atributes
+    facility_page(self, info: strawberryA.types.Info)
+        list of facilities, default limit 1000
+    facility_type_page(self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10)
+        list of facility types, default start on 0 and for 10 entries
+    randomFacility(self, name: str, info: strawberryA.types.Info)
+        feeds semi-random data
+    """
+       
     @strawberryA.field(description="""Finds an workflow by their id""")
     async def say_hello(self, info: strawberryA.types.Info, id: uuid.UUID) -> Union[str, None]:
+        
         result = f'Hello {id}'
         return result
 
     @strawberryA.field(description="""Finds an facility by id""")
     async def facility_by_id(self, info: strawberryA.types.Info, id: uuid.UUID) -> FacilityGQLModel:
+        
         result = await resolveFacilityById(AsyncSessionFromInfo(info), id )
         return result
 
@@ -235,7 +334,4 @@ class Query:
     @strawberryA.field(description="""Random facility""")
     async def randomFacility(self, name: str, info: strawberryA.types.Info) -> str:
         newId = await randomDataStructure(AsyncSessionFromInfo(info))#tady druhy arg name
-        # print('random facility id', newId)
-        # result = await resolveFacilityById(AsyncSessionFromInfo(info), newId)
-        # print('db response', result.name)
         return "ok"

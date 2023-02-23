@@ -49,7 +49,6 @@ class FacilityModel(BaseModel):
     enddate = Column(DateTime)    
 
     master_facility_id=Column(ForeignKey('facilities.id'), nullable=True, primary_key=True)   
-    # external_id = Column(String, index=True)
 
 class FacilityTypeModel(BaseModel):
     """Urcuje typ objektu (areal, budova, patro, mistnost)
@@ -58,21 +57,12 @@ class FacilityTypeModel(BaseModel):
     id=UUIDColumn()
     name=Column(String)
 
-    #facilities=relationship('FacilityModel', back_populates='facilitytype')
-
-
 class UserModel(BaseModel):
     """Spravuje data spojena s uzivatelem
     """
     __tablename__ = 'users'
 
-    id = UUIDColumn()
-   # name = Column(String)
-    #surname = Column(String)
-   
-    #externalId = Column(BigInteger, index=True)
-
-   
+    id = UUIDColumn()   
 
 ###########################################################################################################################
 
@@ -83,7 +73,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 
 async def startEngine(connectionstring, makeDrop=False, makeUp=True):
-    """Provede nezbytne ukony a vrati asynchronni SessionMaker """
+    """Provede nezbytne ukony a vrati asynchronni SessionMaker
+    """
     asyncEngine = create_async_engine(connectionstring) 
 
     async with asyncEngine.begin() as conn:

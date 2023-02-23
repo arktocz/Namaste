@@ -29,16 +29,12 @@ from gql_facilities.DBDefinitions import FacilityTypeModel, FacilityModel
 ###########################################################################################################################
 
 #facility resolvers
-resolveFacilityById = createEntityByIdGetter(FacilityModel)#funguje, nemazat, nešahat
-resolveFacilityPage = createEntityGetter(FacilityModel)#funguje nemazat, nešahat
+resolveFacilityById = createEntityByIdGetter(FacilityModel)
+resolveFacilityPage = createEntityGetter(FacilityModel)
 resolveUpdateFacility = createUpdateResolver(FacilityModel)
 resolveInsertFacility = createInsertResolver(FacilityModel)
 
-
-resolveFacilityByLabel=createEntityGetter(FacilityModel) #je správně?? nopee
-
 #facility type resolvers
-#resolveFacilityType=createEntityByIdGetter(FacilityTypeModel)
 resolveFacilityTypeById = createEntityByIdGetter(FacilityTypeModel)
 resolveFacilityTypeAll = createEntityGetter(FacilityTypeModel)
 resolveUpdateFacilityType = createUpdateResolver(FacilityTypeModel)
