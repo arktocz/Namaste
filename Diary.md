@@ -22,7 +22,7 @@ V rámci konzultace docházíme k názoru, že bude lepším řešením překopa
 
 #### **4 týdny po projektovém dni**
 Začíná experimentace s Jupyterem a stjně rychle jako jsme začali, tak rychle jsme s tím skončili. Největším problémem bylo propsání z jupyteru do pgadminu do databáze (error byl hlášen v connection stringu, ale ten sedí). Přenášíme projekt zpět do vs code, což k našemu překvapení řeší většinu našich problémů s propsáním struktury databáze oproti Jupyteru.
-Začínáme tvořit resolvery (čti topíme se na nich jako myši)-> buď požehnány oishelpers
+Začínáme tvořit resolvery (čti topíme se na nich jako myši)-> buď požehnány uoishelpers
 
 #### **2. projektový den**
 Došly na kukačku nějaké návštěvnice z ciziny. Sdílíme naše útrapy s Jupyterem, ALE dostáváme jistotu, že už nebudeme měnit modely Juchůůů
